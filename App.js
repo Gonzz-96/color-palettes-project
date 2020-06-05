@@ -1,48 +1,34 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 
+import ColorBox from './components/ColorBox';
+
 const App = () => {
   return (
     <SafeAreaView>
-      <View>
-        <Text style={[styles.textMargin, styles.titleText]}>
+      <View style={styles.container}>
+        <Text style={
+          [styles.textMargin, 
+           styles.titleText]}>
           Here are some boxes of different colours
         </Text>
-        <Text style={[styles.textMargin, styles.colorItem, styles.cyanItem]}>Cyan #2aa198</Text>
-        <Text style={[styles.textMargin, styles.colorItem, styles.blueItem]}>Blue #268bd2</Text>
-        <Text style={[styles.textMargin, styles.colorItem, styles.magentaItem]}>Magenta #d33682</Text>
-        <Text style={[styles.textMargin, styles.colorItem, styles.orangeItem]}>Orange #cb4b16</Text>
+        <ColorBox colorName='Cyan' hexCode='#2aa198' />
+        <ColorBox colorName='Blue' hexCode='#268bd2' />
+        <ColorBox colorName='Magenta' hexCode='#d33682' />
+        <ColorBox colorName='Orange' hexCode='#cb4b16' />
       </View>
     </SafeAreaView>
   )
 };
 
 const styles = StyleSheet.create({
-  textMargin: {
-    marginVertical: 8,
-    marginHorizontal: 20,
-    fontWeight: 'bold'
+  container: {
+    marginHorizontal: 20
   },
   titleText: {
     marginTop: 40,
+    marginBottom: 18,
     fontSize: 18
-  },
-  colorItem: {
-    textAlign: 'center',
-    padding: 10,
-    color: 'white'
-  },
-  cyanItem: {
-    backgroundColor: '#2aa189'
-  },
-  blueItem: {
-    backgroundColor: '#268bd2'
-  },
-  magentaItem: {
-    backgroundColor: '#d33682'
-  },
-  orangeItem: {
-    backgroundColor: '#cb4b16'
   }
 });
 
