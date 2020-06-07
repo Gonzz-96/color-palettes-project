@@ -14,7 +14,7 @@ const ColorPaletteModal = () => {
         style={styles.input} 
         onChangeText={setPaletteName}/>
       <FlatList 
-        data={COLORS}
+        data={COLORS.slice(0, 5)}
         keyExtractor={(item) => item.hexCode}
         renderItem={({ item }) => <Color color={item} /> }
       />
@@ -25,6 +25,7 @@ const ColorPaletteModal = () => {
 const styles = StyleSheet.create({
   container: {
     margin: 10,
+    flex: 1,
   },
   instructions: {
     fontWeight: 'bold',
