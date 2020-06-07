@@ -1,41 +1,29 @@
 import  React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList } from 'react-native';
 import PalettePreview from '../PalettePreview';
 
 const Home = ({ navigation }) => {
   return (
-    <View>
-      <TouchableOpacity onPress={() => {
-        navigation.navigate('ColorPalette', {
-          paletteName: 'Solarized',
-          colors: COLORS
-        });
-      }}>
-        <PalettePreview paletteName="Solarized" colors={COLORS} />
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {
-        navigation.navigate('ColorPalette', {
-          paletteName: 'Frontend Masters',
-          colors: FRONTEND_MASTERS
-        })
-      }}>
-        <PalettePreview paletteName="Frontend Masters" colors={FRONTEND_MASTERS} />
-      </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {
-        navigation.navigate('ColorPalette', {
-          paletteName: 'Rainbow',
-          colors: RAINBOW
-        })
-      }}>
-        <PalettePreview paletteName="Rainbow" colors={RAINBOW} />
-      </TouchableOpacity>
-    </View>
+    <FlatList 
+      data={COLOR_PALETTES}
+      keyExtractor={(item) => item.paletteName}
+      renderItem={({ item }) => {
+        return (
+          <TouchableOpacity
+            style={{ marginBottom: 15 }}
+            onPress={() => {
+              navigation.navigate('ColorPalette', item)
+            }}>
+            <PalettePreview 
+              paletteName={item.paletteName}
+              colors={item.colors}/>
+        </TouchableOpacity>)
+      }}
+    />
   );
 };
 
-const COLORS = [
+const SOLARIZED = [
   { colorName: 'Base03', hexCode: '#002b36' },
   { colorName: 'Base02', hexCode: '#073642' },
   { colorName: 'Base01', hexCode: '#586e75' },
@@ -68,6 +56,12 @@ const FRONTEND_MASTERS = [
   { colorName: 'Grey', hexCode: '#8a8a8a' },
   { colorName: 'White', hexCode: '#ffffff' },
   { colorName: 'Orange', hexCode: '#e66225' },
+];
+
+const COLOR_PALETTES = [
+  { paletteName: 'Solarized', colors: SOLARIZED },
+  { paletteName: 'Frontend Masters', colors: FRONTEND_MASTERS},
+  { paletteName: 'Rainbow', colors: RAINBOW }
 ];
 
 export default Home;
