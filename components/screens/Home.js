@@ -1,5 +1,5 @@
 import  React, { useState, useCallback, useEffect } from 'react';
-import { TouchableOpacity, FlatList, Text } from 'react-native';
+import { TouchableOpacity, FlatList, Text, StyleSheet } from 'react-native';
 import PalettePreview from '../PalettePreview';
 
 const Home = ({ navigation }) => {
@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
         <TouchableOpacity onPress={() => {
           navigation.navigate('ColorPaletteModal')
         }}>
-          <Text>Launch Modal</Text>
+          <Text style={styles.launchModalButton}>Add a color scheme</Text>
         </TouchableOpacity>
       }
       data={colors}
@@ -55,5 +55,15 @@ const Home = ({ navigation }) => {
     />
   );
 };
+
+const styles = StyleSheet.create({
+  launchModalButton: {
+    marginHorizontal: 10,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    fontSize: 25,
+    color: 'teal'
+  }
+});
 
 export default Home;
