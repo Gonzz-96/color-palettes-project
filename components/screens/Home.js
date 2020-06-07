@@ -5,6 +5,7 @@ import PalettePreview from '../PalettePreview';
 const Home = ({ navigation }) => {
 
   const [colors, setColors] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const getColorPalettes = useCallback(async () => {
     const response = await fetch('https://color-palette-api.kadikraman.now.sh/palettes');
@@ -14,12 +15,22 @@ const Home = ({ navigation }) => {
     }
   }, []);
 
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true);
+    await getColorPalettes();
+    setTimeout(() => {
+      setIsRefreshing(false);
+    }, 1000);
+  }, []);
+
   useEffect(() => {
     getColorPalettes()
   }, [])
 
   return (
     <FlatList 
+      refreshing={isRefreshing}
+      onRefresh={handleRefresh}
       data={colors}
       keyExtractor={(item) => item.paletteName}
       renderItem={({ item }) => {
