@@ -1,11 +1,26 @@
-import  React from 'react';
+import  React, { useState, useCallback, useEffect } from 'react';
 import { TouchableOpacity, FlatList } from 'react-native';
 import PalettePreview from '../PalettePreview';
 
 const Home = ({ navigation }) => {
+
+  const [colors, setColors] = useState([]);
+
+  const getColorPalettes = useCallback(async () => {
+    const response = await fetch('https://color-palette-api.kadikraman.now.sh/palettes');
+    if (response.ok) {
+      const colorPalettes = await response.json();
+      setColors(colorPalettes);
+    }
+  }, []);
+
+  useEffect(() => {
+    getColorPalettes()
+  }, [])
+
   return (
     <FlatList 
-      data={COLOR_PALETTES}
+      data={colors}
       keyExtractor={(item) => item.paletteName}
       renderItem={({ item }) => {
         return (
