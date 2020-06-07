@@ -1,5 +1,5 @@
 import  React from 'react';
-import { View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { TouchableOpacity, FlatList } from 'react-native';
 import PalettePreview from '../PalettePreview';
 
 const Home = ({ navigation }) => {
