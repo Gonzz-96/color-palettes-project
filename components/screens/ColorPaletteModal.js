@@ -38,8 +38,10 @@ const ColorPaletteModal = ({ route, navigation }) => {
 
         if (!paletteName) {
           Alert.alert('Invalid Palette Name', 'Please add a name to your color palette')
+          return;
         } else if (selectedColors.length < 3) {
-          Alert.alert('No Enough Colors', 'Please add at least 3 colors')
+          Alert.alert('No Enough Colors', 'Please add at least 3 colors');
+          return;
         }
 
         navigation.navigate('Home', {

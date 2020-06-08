@@ -14,7 +14,9 @@ const Home = ({ navigation, route }) => {
     const response = await fetch('https://color-palette-api.kadikraman.now.sh/palettes');
     if (response.ok) {
       const colorPalettes = await response.json();
-      setColors(colorPalettes);
+      setColors(colorPalettes.filter(function(item) {
+        return item.paletteName != "Frontend Masters"
+      }));
     }
   }, []);
 
