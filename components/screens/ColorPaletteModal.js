@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 
 import Color from './Color';
 
-const ColorPaletteModal = () => {
+const ColorPaletteModal = ({ route, navigation }) => {
 
   const [paletteName, setPaletteName] = useState("");
   const [selectedColors, setSelectedColors] = useState([]);
@@ -35,6 +35,19 @@ const ColorPaletteModal = () => {
       />
       <TouchableOpacity onPress={() => {
         console.log(JSON.stringify(selectedColors))
+
+        if (!paletteName) {
+          Alert.alert('Invalid Palette Name', 'Please add a name to your color palette')
+        } else if (selectedColors.length < 3) {
+          Alert.alert('No Enough Colors', 'Please add at least 3 colors')
+        }
+
+        navigation.navigate('Home', {
+          newPalette: {
+            paletteName: paletteName,
+            colors: selectedColors
+          }
+        });
       }}>
         <View style={styles.box}>
           <Text style={styles.boxText}>Submit</Text>
