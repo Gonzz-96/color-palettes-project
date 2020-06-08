@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Switch } from 'react-native';
-import ColorBox from '../ColorBox';
 
-const Color = ({ color }) => {
+const Color = ({ color, onColorSelected, onColorDeselected }) => {
 
   const [isEnabled, setIsEnabled] = useState(false);
 
@@ -12,7 +11,14 @@ const Color = ({ color }) => {
       <View style={[styles.squareColor, { backgroundColor: color.hexCode }]} />
       <Switch
         style={styles.switchStyle}
-        onValueChange={setIsEnabled}
+        onValueChange={(value) => {
+          setIsEnabled(value);
+          if (value) {
+            onColorSelected(color);
+          } else {
+            onColorDeselected(color);
+          }
+        }}
         value={isEnabled} />
     </View>
   );

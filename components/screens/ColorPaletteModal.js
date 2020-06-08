@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, FlatList } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 
 import Color from './Color';
 
 const ColorPaletteModal = () => {
 
   const [paletteName, setPaletteName] = useState("");
+  const [selectedColors, setSelectedColors] = useState([]);
+
+  const onColorSelected = useCallback((color) => {
+    setSelectedColors(current => [...current, color]);
+  }, [])
+
+  const onColorDeselected = useCallback((color) => {
+    setSelectedColors(current => current.filter((item) => 
+      item.hexCode != color.hexCode
+    ))
+  }, [])
 
   return(
     <View style={styles.container}>
@@ -14,10 +25,21 @@ const ColorPaletteModal = () => {
         style={styles.input} 
         onChangeText={setPaletteName}/>
       <FlatList 
-        data={COLORS.slice(0, 5)}
+        data={COLORS.slice(0, 20)}
         keyExtractor={(item) => item.hexCode}
-        renderItem={({ item }) => <Color color={item} /> }
+        renderItem={({ item }) => 
+          <Color
+            color={item} 
+            onColorSelected={onColorSelected}
+            onColorDeselected={onColorDeselected} />}
       />
+      <TouchableOpacity onPress={() => {
+        console.log(JSON.stringify(selectedColors))
+      }}>
+        <View style={styles.box}>
+          <Text style={styles.boxText}>Submit</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   )
 }
@@ -38,6 +60,18 @@ const styles = StyleSheet.create({
     borderColor: '#4c4c4c',
     borderRadius: 5,
   },
+  box: {
+    padding: 10,
+    marginBottom: 40,
+    justifyContent: 'center',
+    backgroundColor: 'teal',
+    alignItems: 'center',
+    borderRadius: 3
+  },
+  boxText: {
+    color: 'white',
+    fontWeight: 'bold'
+  }
 });
 
 const COLORS = [
